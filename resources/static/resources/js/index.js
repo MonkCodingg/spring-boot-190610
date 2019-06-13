@@ -6,7 +6,7 @@ var app = (()=>{//IIFE(이파이) 패턴
         login_form();
         
     }
-    //시블링
+    //시블링 (형제)
     let login_form = ()=>{
         let wrapper = document.querySelector('#wrapper'); //wrapper 객체 '#'=id,'.'=class 
         // bom > dom > 컴퍼넌트
