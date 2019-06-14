@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SupplierMapper {
-    public void addSupplier(SupplierDTO supplier);
+    public void insertSupplier(SupplierDTO supplier);
     public List<SupplierDTO> selectSuppliers();
     public List<SupplierDTO> selectSuppliersByOption(SupplierDTO option);
     public SupplierDTO selectSupplierDTOBySupplierId(String supplierId);

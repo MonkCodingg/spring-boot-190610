@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ShipperMapper {
-    public void addShipper(ShipperDTO shipper);
+    public void insertShipper(ShipperDTO shipper);
     public List<ShipperDTO> selectShippers();
     public List<ShipperDTO> selectShippersByOption(ShipperDTO option);
     public ShipperDTO selectShipperByShipperId(String shipperId);

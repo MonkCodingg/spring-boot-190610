@@ -2,32 +2,39 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bitcamp.web.mapper.Mapper">
-  
-    public void (CustomerDTO customer);
-    public List<CustomerDTO> ();
-    public List<CustomerDTO> (CustomerDTO option);//옵션은 여러가지 일 수 있다.
-    public CustomerDTO (String CustomerId);
-    public void (CustomerDTO customer);
-    public void (CustomerDTO customer);
 
+
+<mapper namespace="com.bitcamp.web.mapper.CustomerMapper">
+  <resultMap id="CustomerMap" type="com.bitcamp.web.domain.CustomerDTO">
+    <id property="customerId" column="CUSTOMER_ID"/>
+    <result property="customerName" column="CUSTOMER_NAME"/>
+    <result property="password" column="PASSWORD" />
+    <result property="ssn" column="SSN" />
+    <result property="phone" column="PHONE" />
+    <result property="city" column="CITY" />
+    <result property="address" column="ADDRESS" />
+    <result property="postalcode" column="POSTALCODE" />
+    <result property="photo" column="PHOTO" />
+</resultMap>
   <insert id="insertCustomer" parameterType="com.bitcamp.web.domain.CustomerDTO">
     insert into CUSTOMERS (CUSTOMER_ID,CUSTOMER_NAME,PASSWORD,SSN,PHONE,CITY,ADDRESS,POSTALCODE,PHOTO)
-    values (#{customerName},#{password},#{ssn},#{phone},#{city},#{address},#{postalcode},#{photo})
+    values (#{customerId},#{customerName},#{password},#{ssn},#{phone},#{city},#{address},#{postalcode},#{photo})
   </insert>
 
-  <select id="selectCustomers" resultType="com.bitcamp.web.domain.CustomerDTO">
+  <select id="selectCustomers" resultMap="CustomerMap">
     select * from CUSTOMERS
   </select>
-  <select id="selectCustomersByOption" resultType="com.bitcamp.web.domain.CustomerDTO" 
+  <select id="selectCustomersByOption" resultMap="CustomerMap" 
                               parameterType="com.bitcamp.web.domain.CustomerDTO">
   select * from CUSTOMERS where CUSTOMER_NAME = #{customerName}
   </select>
-  <select id="selectCustomerByCustomerId" resultType="com.bitcamp.web.domain.CustomerDTO" 
+  <select id="selectCustomerByCustomerId" resultMap="CustomerMap" 
                               parameterType="string">
     select * from CUSTOMERS where CUSTOMER_ID = #{value}
   </select>
-
+  <select id="selectCount" resultType="int">
+    select count(*) as count from CUSTOMERS 
+  </select>
   <update id="updateCustomer" parameterType="com.bitcamp.web.domain.CustomerDTO">
     update CUSTOMERS set
     CUSTOMER_NAME = #{customerName},

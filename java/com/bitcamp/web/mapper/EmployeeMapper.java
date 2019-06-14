@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EmployeeMapper {
-    public void addEmployee(EmployeeDTO employee);
+    public void insertEmployee(EmployeeDTO employee);
     public List<EmployeeDTO> selectEmployees();
     public List<EmployeeDTO> selectEmployeesByOption(EmployeeDTO option);
     public EmployeeDTO selectEmployeesByEmployeeId(String employeeId);

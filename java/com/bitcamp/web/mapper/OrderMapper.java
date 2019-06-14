@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrderMapper {
-    public void addOrder(OrderDTO order);
+    public void insertOrder(OrderDTO order);
     public List<OrderDTO> selectOrders();
     public List<OrderDTO> selectOrdersByOption(OrderDTO option);
     public OrderDTO selectOrderByOrderId(String orderId);

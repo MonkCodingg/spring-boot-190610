@@ -26,8 +26,44 @@ var app = (()=>{//IIFE(이파이) 패턴
         join_btn.addEventListener('click', ()=>{
             join_form();
         });
+        let login_btn = document.querySelector('#login-btn');
+        login_btn.addEventListener('click', ()=>{
+            alert('로그인 버튼 클릭');
+            count();
+        })
             
     }
+    
+    let count =()=>{
+        var xhr = new XMLHttpRequest();
+        method = 'GET';
+        url= 'count';
+        xhr.open(method, url, true);
+        xhr.onreadystatechange=()=>{ // state : 데이터 상태
+            if(xhr.readyState===4 && xhr.status === 200){
+                alert('성공');
+                let wrapper = document.querySelector('#wrapper');
+                wrapper.innerHTML = '총 고객수 : <h1>' +xhr.responseText+'</h1>'
+            }
+        }
+        xhr.send();
+    }
+    
+//    let count =()=>{
+//        let xkr = new XMLHttpRequest();
+//        method = 'GET';
+//        url= 'count';
+//        xkr.open(method, url, true);
+//        xkr.onreadystatechange=()=>{ // state : 데이터 상태
+//            if(xkr.readyState===4 && xkr.readyState == 200){
+//                alert('성공');
+//                let wrapper = document.querySelector('#wrapper');
+//                wrapper.innerHTML = '총 고객수 : <h1>' + xkr.responseText+'</h1>'
+            
+//            }
+
+//        }
+//    }
 
     let join_form = ()=>{
         let wrapper = document.querySelector('#wrapper');

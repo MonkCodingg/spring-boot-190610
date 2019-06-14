@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CategoryMapper {
-    public void addCategory(CategoryDTO category);
+    public void insertCategory(CategoryDTO category);
     public List<CategoryDTO> selectAllCategories();
     public List<CategoryDTO> selectCategoriesByOption(CategoryDTO option);
     public CategoryDTO selectCategoryByCategoryId(CategoryDTO category);

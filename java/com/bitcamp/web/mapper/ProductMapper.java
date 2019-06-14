@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ProductMapper {
-    public void addProduct(ProductDTO product);
+    public void insertProduct(ProductDTO product);
     public List<ProductDTO> selectProducts();
     public List<ProductDTO> selectProductsByOption(ProductDTO option);
     public ProductDTO selectProductByProductId(String productId);

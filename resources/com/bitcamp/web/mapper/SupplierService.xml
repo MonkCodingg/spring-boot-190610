@@ -2,21 +2,31 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.bitcamp.web.mapper.SupplierMapper">
-  
-  <insert id="addSupplier" parameterType="com.bitcamp.web.domain.SupplierDTO">
+  <resultMap id="supplierMap" type="com.bitcamp.web.domain.SupplierDTO">
+    <id property="supplierId" column="SUPPLIER_ID"/>
+    <result property="supplierName" column="SUPPLIER_NAME"/>
+    <result property="contactName" column="CONTACT_NAME" />
+    <result property="address" column="ADDRESS" />
+    <result property="city" column="CITY" />
+    <result property="postalCode" column="POSTAL_CODE" />
+    <result property="country" column="COUNTRY" />
+    <result property="phone" column="PHONE" />
+  </resultMap>
+  <insert id="insertSupplier" parameterType="com.bitcamp.web.domain.SupplierDTO">
     insert into Author (SUPPLIER_ID,SUPPLIER_NAME,CONTACT_NAME,ADDRESS,CITY,POSTAL_CODE,COUNTRY,PHONE)
     values (#{supplierId},#{supplierName},#{contactName},#{address},#{city},#{postalCode},#{country},#{phone})
   </insert>
 
-  <select id="selectSuppliers" resultType="com.bitcamp.web.domain.SupplierDTO">
+  <select id="selectSuppliers" resultMap="supplierMap">
     select * from SUPPLIERS
   </select>
-  <select id="selectSuppliersByOption" resultType="com.bitcamp.web.domain.SupplierDTO" 
+  <select id="selectSuppliersByOption" resultMap="supplierMap" 
                               parameterType="com.bitcamp.web.domain.SupplierDTO">
   select * from SUPPLIERS where SUPPLIER_NAME = #{supplierName}
   </select>
-  <select id="selectSupplierDTOBySupplierId" resultType="com.bitcamp.web.domain.SupplierDTO" 
+  <select id="selectSupplierDTOBySupplierId" resultMap="supplierMap" 
                               parameterType="string">
     select * from SUPPLIERS where SUPPLIER_ID = #{value}
   </select>
@@ -35,6 +45,6 @@
 
   <delete id="deleteSupplier" parameterType="com.bitcamp.web.domain.SupplierDTO">
     delete from SUPPLIERS where SUPPLIER_ID = #{supplierId}
-    
+
   </delete>
 </mapper>

@@ -2,21 +2,30 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.bitcamp.web.mapper.ProductMapper">
-    
-  <insert id="addProduct" parameterType="com.bitcamp.web.domain.ProductDTO">
+  <resultMap id="productMap" type="com.bitcamp.web.domain.ProductDTO">
+    <id property="" column="PRODUCT_ID"/>
+    <result property="productName" column="PRODUCT_NAME"/>
+    <result property="supplierId" column="SUPPLIER_ID" />
+    <result property="categoryId" column="CATEGORY_ID" />
+    <result property="unit" column="UNIT" />
+    <result property="price" column="PRICE" />
+    <result property="photo" column="PHOTO" />
+  </resultMap>  
+  <insert id="insertProduct" parameterType="com.bitcamp.web.domain.ProductDTO">
     insert into PRODUCTS (PRODUCT_ID,PRODUCT_NAME,SUPPLIER_ID,CATEGORY_ID,UNIT,PRICE,PHOTO)
     values (#{productId},#{productName},#{supplierId},#{categoryId},#{unit},#{price},#{photo})
   </insert>
 
-  <select id="selectProducts" resultType="com.bitcamp.web.domain.ProductDTO">
+  <select id="selectProducts" resultMap="productMap">
     select * from PRODUCTS
   </select>
-  <select id="selectProductsByOption" resultType="com.bitcamp.web.domain.ProductDTO" 
+  <select id="selectProductsByOption" resultMap="productMap" 
                               parameterType="com.bitcamp.web.domain.ProductDTO">
   select * from PRODUCTS where PRODUCT_NAME = #{productName}
   </select>
-  <select id="selectProductByProductId" resultType="com.bitcamp.web.domain.ProductDTO" 
+  <select id="selectProductByProductId" resultMap="productMap" 
                               parameterType="string">
     select * from PRODUCTS where PRODUCT_ID = #{value}
   </select>

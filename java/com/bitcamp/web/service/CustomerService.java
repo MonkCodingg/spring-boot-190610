@@ -18,4 +18,5 @@ public interface CustomerService {
     public void updateCustomer(CustomerDTO customer);
     public void deleteCustomer(CustomerDTO customer);
     //기능 정의서는 인터페이스 파일 내용.
+	public int countAll();
 }
