@@ -43,7 +43,7 @@ var app = (()=>{//IIFE(이파이) 패턴
             if(xhr.readyState===4 && xhr.status === 200){
                 alert('성공');
                 let wrapper = document.querySelector('#wrapper');
-                wrapper.innerHTML = '총 고객수 : <h1>' +xhr.responseText+'</h1>'
+                wrapper.innerHTML = '총 고객수 : <h1>' +xhr.responseText+'</h1>';
             }
         }
         xhr.send();

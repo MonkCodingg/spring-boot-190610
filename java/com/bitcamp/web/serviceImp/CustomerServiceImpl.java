@@ -50,6 +50,12 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.selectCount();
     }
 
+    @Override
+    public CustomerDTO login(CustomerDTO customer) {
+        
+        return customerMapper.login(customer);
+    }
+
     
     
 }

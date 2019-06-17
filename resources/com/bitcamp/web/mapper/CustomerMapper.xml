@@ -26,12 +26,18 @@
   </select>
   <select id="selectCustomersByOption" resultMap="CustomerMap" 
                               parameterType="com.bitcamp.web.domain.CustomerDTO">
-  select * from CUSTOMERS where CUSTOMER_NAME = #{customerName}
+  select * from CUSTOMERS where CUSTOMER_NAME like #{customerName}
   </select>
   <select id="selectCustomerByCustomerId" resultMap="CustomerMap" 
                               parameterType="string">
-    select * from CUSTOMERS where CUSTOMER_ID = #{value}
+    select * from CUSTOMERS where CUSTOMER_ID like #{value}
   </select>
+  <select id="login" resultMap="CustomerMap" 
+                              parameterType="com.bitcamp.web.domain.CustomerDTO">
+    select * from CUSTOMERS where CUSTOMER_ID like #{customerId} 
+                                  and PASSWORD like #{password}
+  </select>
+
   <select id="selectCount" resultType="int">
     select count(*) as count from CUSTOMERS 
   </select>
