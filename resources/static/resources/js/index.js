@@ -10,29 +10,93 @@ var app = (()=>{//IIFE(이파이) 패턴
     let login_form = ()=>{
         let wrapper = document.querySelector('#wrapper'); //wrapper 객체 '#'=id,'.'=class 
         // bom > dom > 컴퍼넌트
-        wrapper.innerHTML = +'<form action="/action_page.php">'
-        +'  First name:<br>'
-        +'  <input type="text" name="firstname" value="Mickey">'
+        //id 주는 이유. dom 객체 만들어 select 하려고
+        wrapper.innerHTML ='<form action="/action_page.php">'
+        +'  Login Id:<br>'
+        +'  <input type="text" id="customerId" name="customerId" >'
         +'  <br>'
-        +'  Last name:<br>'
-        +'  <input type="text" name="lastname" value="Mouse">'
+        +'  Password:<br>'
+        +'  <input type="text" id="password" name="password">'
         +'  <br><br>'
-        +'  <input type="button" id="login-btn" value="로그인">'
-        +'  <input type="button" id="join-btn" value="회원가입">'
+        +'  <input id="login-btn"  type="button" value="LOGIN">'
+        +'  <input id="join-btn" type="button" value="JOIN">'
         +'</form> ';
 
-        
         let join_btn = document.querySelector('#join-btn');
         join_btn.addEventListener('click', ()=>{
             join_form();
         });
         let login_btn = document.querySelector('#login-btn');
-        login_btn.addEventListener('click', ()=>{
-            alert('로그인 버튼 클릭');
-            count();
-        })
+        login_btn.addEventListener('click', (e)=>{
             
+            e.preventDefault();
+            alert('로그인 버튼 클릭');
+//            count();
+//            login();
+            //ajax
+            id = document.getElementById('customerId').value;
+                          
+            pass = document.getElementById('password').value;
+            alert('40404040');
+            let xhr = new XMLHttpRequest(),
+                method = 'GET',//가장 빠름
+                url = 'login/'+id+'/'+pass;
+                
+            xhr.open(method, url, true);
+            
+            xhr.onreadystatechange=()=>{
+                if(xhr.readyState===4 && xhr.status === 200){
+                    
+                    let d = xhr.responseText;
+                    if (d==="SUCCESS") {
+                        let wrapper = document.querySelector('#wrapper');
+                        wrapper.innerHTML = '<h1>마이페이지</h1> '; 
+                    }else{
+                        let wrapper = document.querySelector('#wrapper');
+                        wrapper.innerHTML = '<form action="/action_page.php">'
+                        +'  First name:<br>'
+                        +'  <input type="text" id="customerId" name="customerId" >'
+                        +'  <br>'
+                        +'  Last name:<br>'
+                        +'  <input type="text" id="password" name="password">'
+                        +'  <br><br>'
+                        +'  <input id="login-btn"  type="button" value="로그인">'
+                        +'  <input id="join-btn" type="button" value="회원가입">'
+                        +'</form> ';
+                    }
+                }
+            };
+            xhr.send();
+        });  
     }
+/*
+    let login =()=>{
+        var xhr = new XMLHttpRequest();
+        method = 'GET';
+        url= 'login';
+        xhr.open(method, url, true);
+        xhr.onreadystatechange=()=>{
+            if(xhr.readyState === 4 && xhr.status === 200){
+                let warapper = document.querySelector('#wrapper');
+//                wrapper.innerHTML = '로그인 성공 실패 여부 : <h1>'+xhr.responseText+'</h1>';
+                rapper.innerHTML = '마이페이지 ';
+            }else{
+                wrapper.innerHTML = +'<form action="/action_page.php">'
+                +'  First name:<br>'
+                +'  <input type="text" id="customerId" name="customerId" value="">'
+                +'  <br>'
+                +'  Last name:<br>'
+                +'  <input type="text" id="password" name="password" value="">'
+                +'  <br><br>'
+                +'  <input type="button" id="login-btn" value="로그인">'
+                +'  <input type="button" id="join-btn" value="회원가입">'
+                +'</form> ';
+
+            }
+        }
+        xhr.send();
+    }
+*/
     
     let count =()=>{
         var xhr = new XMLHttpRequest();

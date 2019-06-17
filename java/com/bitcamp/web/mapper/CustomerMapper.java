@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 /**
  * customerMapper
  */
-@Repository
+@Repository //component 자식
 public interface CustomerMapper {
     public void insertCustomer(CustomerDTO customer);
     public List<CustomerDTO> selectCustomers();

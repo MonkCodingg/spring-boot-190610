@@ -12,8 +12,8 @@ public class HomeController {   // 클래스를 선언했다.
     @RequestMapping("/") //application.properties 의 prefix에 맵핑
     public String index() {
         System.out.println("루트 URL 경로로 들어왔음");
-        int count = customerService.countAll();
-        System.out.println("고객의 총인원 : " +count);
+//        int count = customerService.countAll();
+//        System.out.println("고객의 총인원 : " +count);
         return "index"; //application.properties 의 suffix에 맵핑
     } 
         

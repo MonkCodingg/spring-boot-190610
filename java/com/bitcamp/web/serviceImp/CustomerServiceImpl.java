@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    @Autowired CustomerMapper customerMapper;
+    @Autowired CustomerMapper customerMapper; 
     @Override
     public void addCustomer(CustomerDTO customer) {
 
@@ -51,11 +51,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO login(CustomerDTO customer) {
+    public CustomerDTO login(CustomerDTO customer) { // 값이 아니라 인스턴스
+        System.out.println("컨트롤러에서 넘어온 name: "+customer.getCustomerId());
+        System.out.println("컨트롤러에서 넘어온 pass: "+customer.getPassword());
         
         return customerMapper.login(customer);
     }
-
-    
-    
 }
