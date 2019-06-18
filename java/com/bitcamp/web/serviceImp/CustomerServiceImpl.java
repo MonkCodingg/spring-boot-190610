@@ -17,7 +17,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired CustomerMapper customerMapper; 
     @Override
     public void addCustomer(CustomerDTO customer) {
-
+        customerMapper.insertCustomer(customer);
     }
 
     @Override
