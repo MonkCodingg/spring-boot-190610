@@ -10,6 +10,7 @@ import lombok.Data;
  */
 @Data @Component @Lazy
 public class CustomerDTO {
+   
     private String customerId, 
     customerName, 
     password, 
