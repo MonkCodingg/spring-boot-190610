@@ -37,7 +37,6 @@ var app = (()=>{//IIFE(이파이) 패턴
             id = document.getElementById('customerId').value;
                           
             pass = document.getElementById('password').value;
-            alert('40404040');
             let xhr = new XMLHttpRequest(),
                 method = 'GET',//가장 빠름
                 url = 'login/'+id+'/'+pass;
