@@ -7,9 +7,11 @@ import com.bitcamp.web.service.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController // controller 자식 : 기능 추가될 수록 자식.
 @RequestMapping("/customers")
 public class CustomerController {
-    @Autowired
-    CustomerService customerService;
-    @Autowired
-    CustomerDTO customer;
+    @Autowired CustomerService customerService;
+    @Autowired CustomerDTO customer;
     
-    @RequestMapping("/count")
+    @GetMapping("/count")
     public String index() {
         System.out.println("CustomerController count() 경로로 들어왔음");
         int count = customerService.countAll();
@@ -56,5 +56,25 @@ public class CustomerController {
         map.put("result", "SUCCESS");
         return map;
     }
- 
+    @GetMapping("/{customerId}")
+    public CustomerDTO getCustmer() {
+        return customer;
+    }
+    @PutMapping("/{customerId}")
+    public HashMap<String,Object> updateCustomer(@RequestBody CustomerDTO param) {
+        System.out.println("=======put mapping========");
+        System.out.println(param.getCustomerId());
+        System.out.println(param.getPassword());
+        System.out.println(param.getCustomerName());
+        System.out.println(param.getCity());
+        customerService.updateCustomer(param);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("result", "SUCCESS");
+        return map;
+    }
+    @DeleteMapping("/{customerId}")
+    public HashMap<String,Object> deleteCustomer() {
+        HashMap<String, Object> map = new HashMap<>();
+        return map;
+    }
 }

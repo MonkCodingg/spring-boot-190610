@@ -50,7 +50,7 @@
     CITY = #{city},
     ADDRESS = #{address},
     POSTALCODE = #{postalcode},
-    PHOTO = #{photo},
+    PHOTO = #{photo}
     where CUSTOMER_ID = #{customerId}
   </update>
    
