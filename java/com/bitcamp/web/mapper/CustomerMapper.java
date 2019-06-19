@@ -15,8 +15,9 @@ public interface CustomerMapper {
     public List<CustomerDTO> selectCustomers();
     public List<CustomerDTO> selectCustomersByOption(CustomerDTO option);//옵션은 여러가지 일 수 있다.
     public CustomerDTO selectCustomerByCustomerId(String CustomerId);
-    public void updateCustomer(CustomerDTO customer);
+    public int updateCustomer(CustomerDTO customer);
     public void deleteCustomer(CustomerDTO customer);
     public int selectCount();
     public CustomerDTO login(CustomerDTO customer);
+    
 }

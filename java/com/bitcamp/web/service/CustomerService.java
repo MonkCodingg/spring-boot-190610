@@ -11,13 +11,20 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface CustomerService {
+
     public void addCustomer(CustomerDTO customer);
+
     public List<CustomerDTO> findCustomers();
+/*
     public List<CustomerDTO> findCustomersByOption(CustomerDTO option);//옵션은 여러가지 일 수 있다.
+*/
     public CustomerDTO findCustomerByCustomerId(String CustomerId);
-    public void updateCustomer(CustomerDTO customer);
+    public int updateCustomer(CustomerDTO customer);
+
     public void deleteCustomer(CustomerDTO customer);
+/*
     //기능 정의서는 인터페이스 파일 내용.
     public int countAll();
+*/
     public CustomerDTO login(CustomerDTO customer); 
 }

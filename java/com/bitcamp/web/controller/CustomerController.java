@@ -1,6 +1,8 @@
 package com.bitcamp.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.bitcamp.web.domain.CustomerDTO;
 import com.bitcamp.web.service.CustomerService;
@@ -27,14 +29,45 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
     @Autowired CustomerService customerService;
     @Autowired CustomerDTO customer;
-    
+
+    @PostMapping("")
+    public HashMap<String,Object> join(@RequestBody CustomerDTO param){ //json과 호환(hashmap)
+        System.out.println("=======Post mapping========");
+        System.out.println(param.getCustomerId());
+        System.out.println(param.getPassword());
+        System.out.println(param.getCustomerName());
+        customerService.addCustomer(param);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("result", "SUCCESS");
+        return map;
+    }
+   
+    @GetMapping("")
+    public List<CustomerDTO> list(){
+        List<CustomerDTO> list = new ArrayList<>();
+        list = customerService.findCustomers();
+        for (CustomerDTO customer : list){
+            System.out.println(customer.getCustomerId()+" : "
+                            +customer.getCustomerName()+" : "
+                            +customer.getPassword()+" : "
+                            +customer.getSsn()+" : "
+                            +customer.getPhone()+" : "
+                            +customer.getCity()+" : "
+                            +customer.getAddress()+" : "
+                            +customer.getPostalcode());
+
+        }
+        return list;
+    }
+/*
     @GetMapping("/count")
     public String index() {
         System.out.println("CustomerController count() 경로로 들어왔음");
         int count = customerService.countAll();
         System.out.println("고객의 총인원 : " +count);
         return count+"";
-    } 
+    }
+*/ 
 
     @GetMapping("/{customerId}/{password}") // annotation ,메소드에 대한 기능정의
     public CustomerDTO login(@PathVariable("customerId")String id, //객체가 반환값으로(RESRful 방식)
@@ -45,36 +78,34 @@ public class CustomerController {
         return customerService.login(customer);
     }
 
-    @PostMapping("")
-    public HashMap<String,Object> join(@RequestBody CustomerDTO param){ //json과 호환(hashmap)
-        System.out.println("=======post mapping========");
-        System.out.println(param.getCustomerId());
-        System.out.println(param.getPassword());
-        System.out.println(param.getCustomerName());
-        customerService.addCustomer(param);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("result", "SUCCESS");
-        return map;
-    }
+/*
     @GetMapping("/{customerId}")
-    public CustomerDTO getCustmer() {
+    public CustomerDTO getCustomer(@PathVariable String customerId) {
+        System.out.println("id 검색 진입 : "+customerId);
+        
+        return customerService.findCustomerByCustomerId(customerId);
+    }
+*/
+    @PutMapping("/{customerId}")
+    public CustomerDTO updateCustomer(@RequestBody CustomerDTO param) {
+        System.out.println("수정 할 id"+param.getCustomerId());
+        int res = customerService.updateCustomer(param);
+        System.out.println("===>" + res);
+        if(res == 1){
+            customer = customerService.findCustomerByCustomerId(param.getCustomerId());
+        }else{
+            System.out.println("컨트롤러 수정 실패");
+        }
         return customer;
     }
-    @PutMapping("/{customerId}")
-    public HashMap<String,Object> updateCustomer(@RequestBody CustomerDTO param) {
-        System.out.println("=======put mapping========");
-        System.out.println(param.getCustomerId());
-        System.out.println(param.getPassword());
-        System.out.println(param.getCustomerName());
-        System.out.println(param.getCity());
-        customerService.updateCustomer(param);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("result", "SUCCESS");
-        return map;
-    }
+
     @DeleteMapping("/{customerId}")
-    public HashMap<String,Object> deleteCustomer() {
+    public HashMap<String,Object> deleteCustomer(@PathVariable String customerId) {
         HashMap<String, Object> map = new HashMap<>();
+        customer.setCustomerId(customerId);
+        customerService.deleteCustomer(customer);
+        map.put("result","탈퇴성공");
         return map;
     }
+
 }

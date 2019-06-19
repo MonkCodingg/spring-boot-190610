@@ -14,11 +14,11 @@
     <result property="city" column="CITY" />
     <result property="address" column="ADDRESS" />
     <result property="postalcode" column="POSTALCODE" />
-    <result property="photo" column="PHOTO" />
+    
 </resultMap>
   <insert id="insertCustomer" parameterType="com.bitcamp.web.domain.CustomerDTO">
-    insert into CUSTOMERS (CUSTOMER_ID,CUSTOMER_NAME,PASSWORD,SSN,PHONE,CITY,ADDRESS,POSTALCODE,PHOTO)
-    values (#{customerId},#{customerName},#{password},#{ssn},#{phone},#{city},#{address},#{postalcode},#{photo})
+    insert into CUSTOMERS (CUSTOMER_ID,CUSTOMER_NAME,PASSWORD,SSN,PHONE,CITY,ADDRESS,POSTALCODE)
+    values (#{customerId},#{customerName},#{password},#{ssn},#{phone},#{city},#{address},#{postalcode})
   </insert>
 
   <select id="selectCustomers" resultMap="CustomerMap">
@@ -49,12 +49,12 @@
     PHONE = #{phone},
     CITY = #{city},
     ADDRESS = #{address},
-    POSTALCODE = #{postalcode},
-    PHOTO = #{photo}
+    POSTALCODE = #{postalcode}
+    
     where CUSTOMER_ID = #{customerId}
   </update>
    
-  <delete id="deleteCustomer" parameterType="com.bitcamp.web.domain.CustomerDTO">
-    delete from CUSTOMERS where CUSTOMER_ID = #{customerId}
+  <delete id="deleteCustomer" parameterType="com.bitcamp.web.domain.CustomerDTO">      
+    delete from CUSTOMERS where CUSTOMER_ID like #{customerId}
   </delete>
 </mapper>
