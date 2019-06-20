@@ -51,12 +51,12 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteCustomer(CustomerDTO customer) {
         customerMapper.deleteCustomer(customer);
     }
-/*
+
     @Override
     public int countAll() {
         return customerMapper.selectCount();
     }
-*/
+
     @Override
     public CustomerDTO login(CustomerDTO customer) { // 값이 아니라 인스턴스
         System.out.println("컨트롤러에서 넘어온 name: "+customer.getCustomerId());

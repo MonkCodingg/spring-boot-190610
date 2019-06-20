@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.bitcamp.web.common.util.Printer;
 import com.bitcamp.web.domain.CustomerDTO;
 import com.bitcamp.web.service.CustomerService;
 
@@ -29,7 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
     @Autowired CustomerService customerService;
     @Autowired CustomerDTO customer;
-
+    @Autowired Printer p;
+    
     @PostMapping("")
     public HashMap<String,Object> join(@RequestBody CustomerDTO param){ //json과 호환(hashmap)
         System.out.println("=======Post mapping========");
@@ -59,15 +61,16 @@ public class CustomerController {
         }
         return list;
     }
-/*
+
     @GetMapping("/count")
     public String index() {
         System.out.println("CustomerController count() 경로로 들어왔음");
         int count = customerService.countAll();
-        System.out.println("고객의 총인원 : " +count);
+        p.accept("람다가 출력한 고객의 총인원 : " +count); 
+        //System.out.println("고객의 총인원 : " +count);
         return count+"";
     }
-*/ 
+ 
 
     @GetMapping("/{customerId}/{password}") // annotation ,메소드에 대한 기능정의
     public CustomerDTO login(@PathVariable("customerId")String id, //객체가 반환값으로(RESRful 방식)

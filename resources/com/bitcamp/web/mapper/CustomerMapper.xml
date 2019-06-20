@@ -28,7 +28,7 @@
                               parameterType="com.bitcamp.web.domain.CustomerDTO">
   select * from CUSTOMERS where CUSTOMER_NAME like #{customerName}
   </select>
-  <select id="selectCustomerByCustomerId" resultMap="CustomerMap" 
+  <select id="selectCustomerById" resultMap="CustomerMap" 
                               parameterType="string">
     select * from CUSTOMERS where CUSTOMER_ID like #{value}
   </select>

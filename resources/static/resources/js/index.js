@@ -163,34 +163,6 @@ function login_form(){
     +'  <input id="admin-btn" type="button" value="관리자">'
     +'</form> ';
 }
-/*
-//변경전
-function login(){
-    alert('로그인 함수에 들어옴');
-    id = document.getElementById('customerId').value;
-    pass = document.getElementById('password').value;
-    let xhr = new XMLHttpRequest();
-    
-    xhr.open('GET', 'customers/'+id+'/'+pass, true);
-    alert("56565655656");
-    xhr.onload=()=>{
-        
-        if(xhr.readyState=== 4 && xhr.status === 200){
-            let d = JSON.parse(xhr.responseText); // DTO->javascript
-            
-            alert('로그인 성공 후 이름:'+d.customerName);
-            if(d){
-                
-                customer.mypage(d);
-                
-            }else{
-                app.init();
-            }  
-        }
-    };
-    xhr.send();  
-}
-*/
 
 function login(x){
     id = document.getElementById(x.userid).value;
