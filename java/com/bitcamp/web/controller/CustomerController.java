@@ -9,16 +9,16 @@ import com.bitcamp.web.domain.CustomerDTO;
 import com.bitcamp.web.service.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -47,6 +47,7 @@ public class CustomerController {
     @GetMapping("")
     public List<CustomerDTO> list(){
         List<CustomerDTO> list = new ArrayList<>();
+    /*
         list = customerService.findCustomers();
         for (CustomerDTO customer : list){
             System.out.println(customer.getCustomerId()+" : "
@@ -59,6 +60,7 @@ public class CustomerController {
                             +customer.getPostalcode());
 
         }
+    */
         return list;
     }
 

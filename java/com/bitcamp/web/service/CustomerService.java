@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public interface CustomerService {
 
     public void addCustomer(CustomerDTO customer);
-    public List<CustomerDTO> findCustomers();
+//    public List<CustomerDTO> findCustomers();
 /*
     public List<CustomerDTO> findCustomersByOption(CustomerDTO option);//옵션은 여러가지 일 수 있다.
 */

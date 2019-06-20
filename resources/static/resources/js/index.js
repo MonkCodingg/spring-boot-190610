@@ -20,12 +20,27 @@ var customer = {
 var employee = {
     login : login,
     customer_list : customer_list,
-    admin_login : admin_login
+    admin_login : admin_login,
+    customer_list_form : customer_list_form
 };
 var session = {
     set_value : set_value,
     get_value : get_value
 };
+
+function customer_list_form(){
+    
+    return '<h2>고객 목록</h2>'
+    +'<table>'
+      +'<tr id="customer-table">'
+        +'<th>아이디</th>'
+        +'<th>고객명</th>'
+        +'<th>주민번호</th>'
+        +'<th>전화번호</th>'
+        +'<th>도시</th>'
+      +'</tr><tbody id="tbody"></tbody>' 
+    +'</table>';
+}
 function set_value(x){
     sessionStorage.setItem(x.name, x.value);
 }
@@ -77,17 +92,34 @@ function admin_login(){
     }else{
         alert('관리자만 접속이 가능합니다.');
     }
+
 }
 function customer_list(){
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'customers', true);
     xhr.onload=()=>{
         if(xhr.readyState=== 4 && xhr.status === 200){
-            let d = JSON.parse(xhr.responseText); // DTO->javascript  
-            if(d){
-                
-
+            //let d = JSON.parse(xhr.responseText); // DTO->javascript  
+            let wrapper = document.querySelector('#wrapper');
+            wrapper.innerHTML = employee.customer_list_form();
+            let tbody = document.getElementById('tbody');
+            let i = 0;
+            let rows = '';
+            for ( ;i <5;i++){
+                rows += "<tr><td>"+i+"</td><td>"+i+"</td>"
+                +"<td>"+i+"</td><td>"+i+"</td><td>"+i+"</td></tr>";
             }
+            tbody.innerHTML=rows;
+
+            let blocks = document.createElement('div');
+            blocks.setAttribute('id','blocks');
+            wrapper.appendChild(blocks);
+            let spans = '';
+            i = 1;
+            for(;i<6;i++){
+                spans += "<span style='display:inline-block;padding-right:20px';border: 1px solid black;'>"+i+"</span>";
+            }
+            blocks.innerHTML=spans;
         }
     };
     xhr.send(); 

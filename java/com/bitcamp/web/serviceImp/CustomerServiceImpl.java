@@ -21,10 +21,10 @@ public class CustomerServiceImpl implements CustomerService {
         customerMapper.insertCustomer(customer);
     }
  
-    @Override
-    public List<CustomerDTO> findCustomers() {
-        return customerMapper.selectCustomers();
-    }
+//    @Override
+//    public List<CustomerDTO> findCustomers() {
+//        return customerMapper.selectCustomers();
+//    }
 /*
     @Override
     public List<CustomerDTO> findCustomersByOption(CustomerDTO option) {

@@ -21,14 +21,20 @@
     values (#{customerId},#{customerName},#{password},#{ssn},#{phone},#{city},#{address},#{postalcode})
   </insert>
 
-  <select id="selectCustomers" resultMap="CustomerMap">
-    select * from CUSTOMERS
+  <select id="selectCustomers" resultMap="CustomerMap"
+        parameterType="com.bitcamp.web.common.util.PageProxy">
+         SELECT @ROWNUM:=@ROWNUM+1 AS rownum,
+                C.*
+        FROM CUSTOMERS C, (SELECT @ROWNUM:=0)TMP
+        ORDER BY rownum DESC
+        LIMIT #{startRow}, #{pageSize}
   </select>
+  
   <select id="selectCustomersByOption" resultMap="CustomerMap" 
                               parameterType="com.bitcamp.web.domain.CustomerDTO">
   select * from CUSTOMERS where CUSTOMER_NAME like #{customerName}
   </select>
-  <select id="selectCustomerById" resultMap="CustomerMap" 
+  <select id="selectCustomerByCustomerId" resultMap="CustomerMap" 
                               parameterType="string">
     select * from CUSTOMERS where CUSTOMER_ID like #{value}
   </select>
