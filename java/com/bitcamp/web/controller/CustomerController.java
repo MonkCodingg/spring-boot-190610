@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.bitcamp.web.common.util.PageProxy;
 import com.bitcamp.web.common.util.Printer;
 import com.bitcamp.web.domain.CustomerDTO;
 import com.bitcamp.web.service.CustomerService;
@@ -31,6 +32,7 @@ public class CustomerController {
     @Autowired CustomerService customerService;
     @Autowired CustomerDTO customer;
     @Autowired Printer p;
+    @Autowired PageProxy pxy;
     
     @PostMapping("")
     public HashMap<String,Object> join(@RequestBody CustomerDTO param){ //json과 호환(hashmap)
@@ -44,24 +46,20 @@ public class CustomerController {
         return map;
     }
    
-    @GetMapping("")
-    public List<CustomerDTO> list(){
-        List<CustomerDTO> list = new ArrayList<>();
-    /*
-        list = customerService.findCustomers();
-        for (CustomerDTO customer : list){
-            System.out.println(customer.getCustomerId()+" : "
-                            +customer.getCustomerName()+" : "
-                            +customer.getPassword()+" : "
-                            +customer.getSsn()+" : "
-                            +customer.getPhone()+" : "
-                            +customer.getCity()+" : "
-                            +customer.getAddress()+" : "
-                            +customer.getPostalcode());
-
-        }
-    */
-        return list;
+    @GetMapping("/page/{pageNum}")
+    public HashMap<String, Object> list(@PathVariable String pageNum){
+        
+        //totalCount, page_num, page_size, block_size
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("totalCount", customerService.countAll());
+        map.put("page_num", pageNum);
+        map.put("page_size", "5");
+        map.put("block_size", "5");
+        pxy.execute(map);
+        map.put("list", customerService.findCustomers(pxy));
+        map.put("pxy", pxy);
+    
+        return map;
     }
 
     @GetMapping("/count")
@@ -73,7 +71,6 @@ public class CustomerController {
         return count+"";
     }
  
-
     @GetMapping("/{customerId}/{password}") // annotation ,메소드에 대한 기능정의
     public CustomerDTO login(@PathVariable("customerId")String id, //객체가 반환값으로(RESRful 방식)
                         @PathVariable("password") String pass){  //메소드 선언(declaration) -> notation

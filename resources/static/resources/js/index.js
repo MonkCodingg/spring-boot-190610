@@ -31,8 +31,8 @@ var session = {
 function customer_list_form(){
     
     return '<h2>고객 목록</h2>'
-    +'<table>'
-      +'<tr id="customer-table">'
+    +'<table id="customer-table">'
+      +'<tr>'
         +'<th>아이디</th>'
         +'<th>고객명</th>'
         +'<th>주민번호</th>'
@@ -85,7 +85,7 @@ function admin_login(){
     if(isAdmin){
         let pass = prompt('관리자 번호를 입력하세요?');
         if(pass == 1000){
-            employee.customer_list();
+            employee.customer_list('1');
         }else{
             alert('입력한 번호가 일치하지 않습니다.');
         }
@@ -94,32 +94,81 @@ function admin_login(){
     }
 
 }
-function customer_list(){
+function create_customer_row(x) {
+    return "<tr><td>"+x.customerId+"</td><td>"+x.customerName+"</td>"
+                +"<td>"+x.ssn+"</td><td>"+x.phone+"</td><td>"+x.city+"</td></tr>";
+    
+}
+
+function customer_list(x){
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'customers', true);
+    // pageNum, pageSize, blockSize
+    
+    xhr.open('GET', 'customers/page/'+x, true);
     xhr.onload=()=>{
         if(xhr.readyState=== 4 && xhr.status === 200){
-            //let d = JSON.parse(xhr.responseText); // DTO->javascript  
+            let d = JSON.parse(xhr.responseText); // DTO->javascript 
             let wrapper = document.querySelector('#wrapper');
             wrapper.innerHTML = employee.customer_list_form();
-            let tbody = document.getElementById('tbody');
+            let tbody = document.getElementById('tbody'); 
+            
+            //d는 배열. 그안에 json 형태
+            /*
+            배열.forEach(function(v, i){   
+            });
+            */
             let i = 0;
             let rows = '';
-            for ( ;i <5;i++){
-                rows += "<tr><td>"+i+"</td><td>"+i+"</td>"
-                +"<td>"+i+"</td><td>"+i+"</td><td>"+i+"</td></tr>";
-            }
-            tbody.innerHTML=rows;
 
+            d.list.forEach((v, i)=>{ 
+                tbody.innerHTML+=create_customer_row(v);
+            });
+            
             let blocks = document.createElement('div');
             blocks.setAttribute('id','blocks');
             wrapper.appendChild(blocks);
-            let spans = '';
+            let spans = document.createElement('div');
             i = 1;
             for(;i<6;i++){
-                spans += "<span style='display:inline-block;padding-right:20px';border: 1px solid black;'>"+i+"</span>";
+                let span = document.createElement('span');
+                span.setAttribute('style','display:inline-block;padding-right:20px;border: 1px solid black;cursor:pointer')
+                span.setAttribute('class', 'page-num');
+                span.innerHTML = i;
+                if(x == span.innerHTML){
+                    span.style.backgroundColor = "red";
+                }
+
+                let clss = document.getElementsByClassName('page-num');
+                /** 형우씨 로직*/
+                i = 0;
+                for(;i<clss.length;i++){ 
+                    (function(i){
+                        clss[i].addEventListener('click',function(x){
+                            customer_list(this.innerText)
+                        })
+                    })(i)
+                }
+                spans.appendChild(span);
+                Array.prototype.forEach.call(clss, x=>{
+                    employee.customer_list(x.innerText);
+                });
             }
-            blocks.innerHTML=spans;
+            blocks.appendChild(spans);
+            let clss = document.getElementsByClassName('page-num');
+
+            if(d.existPrev){
+                let prevBlock = document.createElement('span');
+                prevBlock.setAttribute('style','display:inline-block;padding-right:20px;border: 1px solid black;');
+                prevBlock.textContent="<";
+                blocks.prepend(prevBlock);
+            }
+     
+            if(d.existNext){
+                let nextBlock = document.createElement('span');
+                nextBlock.setAttribute('style','display:inline-block;padding-right:20px;border: 1px solid black;');
+                nextBlock.textContent=">";
+                blocks.appendChild(nextBlock);
+            }
         }
     };
     xhr.send(); 
@@ -162,6 +211,7 @@ function join(){
     };
 
     xhr.open('POST','customers',true);
+    //http 헤더 정보 입력.
     xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
     xhr.onload=()=>{
         if(xhr.readyState==4 && xhr.status==200){

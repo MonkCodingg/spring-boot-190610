@@ -11,14 +11,14 @@ import lombok.Data;
 @Data @Component @Lazy
 public class CustomerDTO {
    
-    private String customerId, 
-    customerName, 
-    password, 
-    ssn, 
-    phone, 
-    city, 
-    address, 
-    postalcode, 
-    photo;
+        private String customerId, 
+        customerName, 
+        password, 
+        ssn, 
+        phone, 
+        city, 
+        address, 
+        postalcode, 
+        photo;
 
 }
