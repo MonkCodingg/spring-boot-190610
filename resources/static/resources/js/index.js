@@ -243,7 +243,7 @@ function login(x){
     pass = document.getElementById('password').value;
     let xhr = new XMLHttpRequest();
     xhr.open('GET', x.domain+'/'+id+'/'+pass, true);
-//    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
     xhr.onload=()=>{
         if(xhr.readyState=== 4 && xhr.status === 200){
             let d = JSON.parse(xhr.responseText); // DTO->javascript

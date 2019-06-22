@@ -13,9 +13,9 @@
     <result property="phone" column="PHONE" />
     <result property="city" column="CITY" />
     <result property="address" column="ADDRESS" />
-    <result property="postalcode" column="POSTALCODE" />
-    
-</resultMap>
+    <result property="postalcode" column="POSTALCODE" />   
+  </resultMap>
+
   <insert id="insertCustomer" parameterType="com.bitcamp.web.domain.CustomerDTO">
     insert into CUSTOMERS (CUSTOMER_ID,CUSTOMER_NAME,PASSWORD,SSN,PHONE,CITY,ADDRESS,POSTALCODE)
     values (#{customerId},#{customerName},#{password},#{ssn},#{phone},#{city},#{address},#{postalcode})
