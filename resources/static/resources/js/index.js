@@ -1,4 +1,4 @@
-// use
+
 var app =  {
     $wrapper : $wrapper = document.querySelector('#wrapper'),
     init : init    
@@ -29,7 +29,6 @@ var session = {
 };
 
 function customer_list_form(){
-    
     return '<h2>고객 목록</h2>'
     +'<table id="customer-table">'
       +'<tr>'
@@ -103,7 +102,6 @@ function create_customer_row(x) {
 function customer_list(x){
     let xhr = new XMLHttpRequest();
     // pageNum, pageSize, blockSize
-    
     xhr.open('GET', 'customers/page/'+x, true);
     xhr.onload=()=>{
         if(xhr.readyState=== 4 && xhr.status === 200){
@@ -118,8 +116,6 @@ function customer_list(x){
             });
             */
             let i = 0;
-            let rows = '';
-
             d.list.forEach((v, i)=>{ 
                 tbody.innerHTML+=create_customer_row(v);
             });
@@ -129,34 +125,30 @@ function customer_list(x){
             wrapper.appendChild(blocks);
             let spans = document.createElement('div');
             i = 1;
-            for(;i<6;i++){
+            for(;i<6;i++){  //1 2 3 4 5 6
                 let span = document.createElement('span');
-                span.setAttribute('style','display:inline-block;padding-right:20px;border: 1px solid black;cursor:pointer')
+                span.setAttribute('style','display:inline-block;padding-right:20px;border: 1px solid black;');
                 span.setAttribute('class', 'page-num');
                 span.innerHTML = i;
                 if(x == span.innerHTML){
                     span.style.backgroundColor = "red";
                 }
-
-                let clss = document.getElementsByClassName('page-num');
-                /** 형우씨 로직*/
-                i = 0;
-                for(;i<clss.length;i++){ 
-                    (function(i){
-                        clss[i].addEventListener('click',function(x){
-                            customer_list(this.innerText)
-                        })
-                    })(i)
-                }
-                spans.appendChild(span);
-                Array.prototype.forEach.call(clss, x=>{
-                    employee.customer_list(x.innerText);
-                });
+                spans.appendChild(span); 
             }
             blocks.appendChild(spans);
-            let clss = document.getElementsByClassName('page-num');
 
-            if(d.existPrev){
+            let clss = document.getElementsByClassName('page-num');
+            /** 형우씨 로직*/
+            i = 0;
+            for(;i<clss.length;i++){ 
+                (function(i){
+                    clss[i].addEventListener('click',function(){
+                        customer_list(this.innerText)
+                    })
+                })(i)
+            }
+
+            if(d.pxy.existPrev){
                 let prevBlock = document.createElement('span');
                 prevBlock.setAttribute('style','display:inline-block;padding-right:20px;border: 1px solid black;');
                 prevBlock.textContent="<";
@@ -251,6 +243,7 @@ function login(x){
     pass = document.getElementById('password').value;
     let xhr = new XMLHttpRequest();
     xhr.open('GET', x.domain+'/'+id+'/'+pass, true);
+//    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
     xhr.onload=()=>{
         if(xhr.readyState=== 4 && xhr.status === 200){
             let d = JSON.parse(xhr.responseText); // DTO->javascript
@@ -278,7 +271,8 @@ function mypage(x){
 
     document.querySelector('#update-btn').addEventListener('click',e=>{
         e.preventDefault();
-//        alert('세션테스트' +session.get_value('user'));
+//        alert('세션테스트 ID' +session.get_value('userid'));
+//       alert('세션테스트 NAME' +session.get_value('username'));
         customer.update(x);
     });
 

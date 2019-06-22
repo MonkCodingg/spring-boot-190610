@@ -1,9 +1,6 @@
 package com.bitcamp.web.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import com.bitcamp.web.common.util.PageProxy;
 import com.bitcamp.web.common.util.Printer;
 import com.bitcamp.web.domain.CustomerDTO;
@@ -51,12 +48,12 @@ public class CustomerController {
         
         //totalCount, page_num, page_size, block_size
         HashMap<String, Object> map = new HashMap<>();
-        map.put("totalCount", customerService.countAll());
+        map.put("totalCount", customerService.countAll()); //반환값 int
         map.put("page_num", pageNum);
         map.put("page_size", "5");
         map.put("block_size", "5");
-        pxy.execute(map);
-        map.put("list", customerService.findCustomers(pxy));
+        pxy.execute(map);//totalCount, page_num, page_size, block_size 값으로 페이지네이션 값 생성
+        map.put("list", customerService.findCustomers(pxy)); // 반환값 List<CustomerDTO>
         map.put("pxy", pxy);
     
         return map;
